@@ -1,0 +1,358 @@
+"" https://www.cyberwizard.io/posts/the-ultimate-ideavim-setup/
+
+"" set handlers
+sethandler <C-A> a:ide
+sethandler <C-C> a:ide
+sethandler <A-H> a:vim
+sethandler <C-I> a:vim
+sethandler <A-J> a:vim
+sethandler <A-K> a:vim
+sethandler <A-L> a:vim
+sethandler <C-N> a:vim
+sethandler <C-O> a:vim
+sethandler <C-V> a:ide
+
+"" Emulated plugins
+set argtextobj
+let g:argtextobj_pairs="(:),{:},<:>,[:]"
+set commentary
+set highlightedyank
+set NERDTree
+set surround
+set textobj-entire
+"set indent-object
+set which-key
+set sneak
+
+set quickscope
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+let g:qs_accepted_chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+let g:qs_max_chars=120
+highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
+highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
+
+set multiple-cursors
+
+"Needed for multiple-cursors according to the interwebs"
+
+nmap <C-n> <Plug>NextWholeOccurrence
+xmap <C-n> <Plug>NextWholeOccurrence
+nmap g<C-n> <Plug>NextOccurrence
+xmap g<C-n> <Plug>NextOccurrence
+nmap <C-x> <Plug>SkipOccurrence
+xmap <C-x> <Plug>SkipOccurrence
+nmap <C-p> <Plug>RemoveOccurrence
+xmap <C-p> <Plug>RemoveOccurrence
+
+nmap <S-C-n> <Plug>AllWholeOccurrences
+xmap <S-C-n> <Plug>AllWholeOccurrences
+nmap g<S-C-n> <Plug>AllOccurrences
+xmap g<S-C-n> <Plug>AllOccurrences
+
+set easymotion
+
+"" Options
+set notimeout
+set ignorecase
+set smartcase
+set incsearch
+set nohlsearch
+set relativenumber
+set number
+set ideajoin
+set ideamarks
+set scrolloff=10
+set showmode
+set showcmd
+" stay in the mode the editing started"
+set idearefactormode=keep
+
+"" No annoying sounds
+set visualbell
+set tm=500
+
+"" Mappings
+" 0 -> first non-blank character
+map 0 ^
+
+" Center buffer when navigating
+nmap <C-u> <C-u>zz
+nmap <C-d> <C-d>zz
+nmap n nzzzv
+nmap N Nzzzv
+
+nmap <C-i> <Action>(Back)
+nmap <C-o> <Action>(Forward)
+nmap <A-n> <Action>(NewElement)
+
+" Navigate project errors
+map [d <Action>(GotoPreviousError)
+map ]d <Action>(GotoNextError)
+
+" Show hoverdoc"
+map H <Action>(ShowErrorDescription)
+
+" Navigate git changes
+map [c <Action>(VcsShowPrevChangeMarker)
+map ]c <Action>(VcsShowNextChangeMarker)
+
+" Navigate methods
+map [m <Action>(MethodUp)
+map ]m <Action>(MethodDown)
+
+" Tab navigation
+nnoremap <TAB> :tabnext<CR>
+nnoremap <s-TAB> :tabprev<CR>
+
+" Keep visual indentation
+vnoremap < <gv
+vnoremap > >gv
+
+" Shortcutting split navigation
+map <a-h> <C-w>h
+map <a-j> <C-w>j
+map <a-k> <C-w>k
+map <a-l> <C-w>l
+
+" Use system clipboard, look into ideaput
+set clipboard+=unnamed
+set clipboard+=ideaput
+
+let mapleader = ";"
+
+nnoremap <leader><leader> ;
+
+let g:NERDTreeMapActivateNode='l'
+let g:NERDTreeMapJumpParent='h'
+
+let g:WhichKey_FontSize = 16
+let g:WhichKey_CommandColor = "#41ead4"
+let g:WhichKey_PrefixColor = "#f335b2"
+let g:WhichKey_SortOrder = "by_key_prefix_first"
+
+" Close stuff
+map <leader>q <Action>(CloseContent)
+map <leader>Q <Action>(CloseAllEditors)
+map <leader>h <Action>(HideAllWindows)
+let g:WhichKeyDesc_close_tab = "<leader>q Close active tab"
+let g:WhichKeyDesc_close_all = "<leader>Q Close all editors"
+let g:WhichKeyDesc_hide_all_windows = "<leader>h Hide all windows"
+
+"lsp type stuff"
+map <leader>gi <action>(GotoImplementation)
+map <leader>gd <Action>(GotoDeclaration)
+map <leader>gy <Action>(GotoTypeDeclaration)
+map <leader>gs <Action>(GotoSuperMethod)
+map <leader>gr <Action>(GotoRelated)
+map <leader>gt <Action>(GotoTest)
+map <leader>gu <Action>(ShowUsages)
+let g:WhichKeyDesc_goto = "<leader>g Go to X"
+let g:WhichKeyDesc_goto_declaration = "<leader>gd Declaration"
+let g:WhichKeyDesc_goto_type_declaration = "<leader>gy Type Definition"
+let g:WhichKeyDesc_goto_implementation = "<leader>gi Implementation"
+let g:WhichKeyDesc_goto_usages = "<leader>gu Usages"
+let g:WhichKeyDesc_goto_test = "<leader>gt Test"
+let g:WhichKeyDesc_goto_related = "<leader>gr Related"
+let g:WhichKeyDesc_goto_super_method = "<leader>gs Super Method"
+
+let g:WhichKeyDesc_leader = "<leader> Leader key"
+let g:WhichKeyDesc_nerdtree = "<leader>x Open file explorer"
+
+let g:WhichKeyDesc_easymotion = "<leader>j Jump with Easymotion"
+
+let g:WhichKeyDesc_comment = "<leader>c Comment line"
+
+let g:WhichKeyDesc_fold = "<leader>z Folding"
+let g:WhichKeyDesc_fold_all = "<leader>zc Fold all regions"
+let g:WhichKeyDesc_unfold_all = "<leader>zo Unfold all regions"
+
+let g:WhichKeyDesc_window = "<leader>w Window splits"
+let g:WhichKeyDesc_window_split_vertically = "<leader>wv Split vertically"
+let g:WhichKeyDesc_window_split_horizontally = "<leader>ws Split horizontally"
+let g:WhichKeyDesc_window_split_unsplit = "<leader>wu Unsplit"
+let g:WhichKeyDesc_window_split_move_editor = "<leader>wm Move editor to opposite tab group"
+
+let g:WhichKeyDesc_display = "<leader>d Display options"
+let g:WhichKeyDesc_zen_mode = "<leader>dz Toggle Zen mode"
+let g:WhichKeyDesc_df_mode = "<leader>dd Toggle Distraction-Free mode"
+let g:WhichKeyDesc_fullscreen = "<leader>df Toggle full screen"
+let g:WhichKeyDesc_presentation = "<leader>dp Toggle presentation mode"
+
+let g:WhichKeyDesc_action= "<leader>a Actions"
+let g:WhichKeyDesc_action_menu = "<leader>ac Open actions menu"
+let g:WhichKeyDesc_action_context_menu = "<leader>am Open context menu"
+let g:WhichKeyDesc_action_search = "<leader>as Open command modal"
+let g:WhichKeyDesc_action_generate = "<leader>ag Alt-Insert"
+let g:WhichKeyDesc_action_optimize_imports = "<leader>ao Optimize Imports"
+
+let g:WhichKeyDesc_refactoring = "<leader>r Refactoring menu"
+let g:WhichKeyDesc_refactoring_rename = "<leader>rn Rename element"
+let g:WhichKeyDesc_refactoring_method = "<leader>rm Extract method"
+let g:WhichKeyDesc_refactoring_variable = "<leader>rv Introduce variable"
+let g:WhichKeyDesc_refactoring_field = "<leader>rf Introduce field"
+let g:WhichKeyDesc_refactoring_signature = "<leader>rs Change signature"
+let g:WhichKeyDesc_refactoring_all = "<leader>rr Open refactorings list"
+
+let g:WhichKeyDesc_errors = "<leader>e Error navigation"
+let g:WhichKeyDesc_errors_next = "<leader>en Go to next error in solution"
+let g:WhichKeyDesc_errors_prev = "<leader>ep Go to previous error in solution"
+
+let g:WhichKeyDesc_terminal = "<leader>t Open in terminal"
+
+inoremap jk <Esc>
+
+" Ideavimrc"
+nnoremap \e :e ~/.ideavimrc<CR>
+nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
+
+" Run shit"
+nnoremap ,r :action ContextRun<CR>
+nnoremap ,c :action RunClass<CR>
+nnoremap ,f :action ChooseRunConfiguration<CR>
+nnoremap ,t :action ActivateRunToolWindow<CR>
+nnoremap ,u :action Rerun<CR>
+nnoremap ,s :action Stop<CR>
+
+" Editor complete statement"
+inoremap <c-return> :action EditorCompleteStatement<CR>
+
+" Active tool window"
+nnoremap ,h :action HideActiveWindow<CR>
+
+" Terminal"
+nnoremap <c-t> :action ActivateTerminalToolWindow<CR>
+
+" Execute macro saved in 'q' register
+nnoremap qj @q
+
+" ALWYN need to figure this out
+" Popup navigation
+"sethandler <C-j> a:vim
+"sethandler <C-k> a:vim
+"inoremap <C-j> <Action>(EditorDown)
+"inoremap <C-k> <Action>(EditorUp)
+"inoremap <C-j> <Action>(PopupMenu-selectNext)
+"inoremap <C-k> <Action>(PopupMenu-selectPrev)
+
+" Leader commands
+" ========================================================
+
+" Comment lines
+map <leader>c <action>(CommentByLineComment)
+
+" Jump around with easymotion
+map <leader>j <Plug>(easymotion-s)
+
+" Open NERDTree (use q to quit)
+map <leader>x :NERDTreeToggle<CR>
+
+" Folding
+map <leader>zc :action CollapseAllRegions<CR>
+map <leader>zo :action ExpandAllRegions<CR>
+
+" Window splits
+map <leader>wv <Action>(SplitVertically)
+map <leader>ws <Action>(SplitHorizontally)
+map <leader>wu <Action>(Unsplit)
+map <leader>wm <Action>(MoveEditorToOppositeTabGroup)
+
+" Display options
+map <leader>dd <action>(ToggleDistractionFreeMode)
+map <leader>dz <action>(ToggleZenMode)
+map <leader>df <action>(ToggleFullScreen)
+map <leader>dp <action>(TogglePresentationMode)
+
+" Actions
+map <leader>ac <action>(ShowIntentionActions)
+map <leader>am <action>(ShowPopupMenu)
+map <leader>as <action>(SearchEverywhere)
+map <leader>ag <action>(Generate)
+map <leader>ao <action>(OptimizeImports)
+
+" File navigation
+map <leader>ff <action>(GotoFile)
+map <leader>fg <action>(FindInPath)
+map <leader>fl <action>(RecentLocations)
+map <leader>fm <Action>(MainMenu)
+map <leader>fp <Action>(ManageRecentProjects)
+map <leader>fr <action>(RecentFiles)
+map <leader>fs <action>(NewScratchFile)
+let g:WhichKeyDesc_file_nav = "<leader>f File navigation"
+let g:WhichKeyDesc_file_nav_goto_file = "<leader>ff Go to file"
+let g:WhichKeyDesc_file_find_in_path = "<leader>fg Find in path"
+let g:WhichKeyDesc_file_nav_show_recent_locations = "<leader>fl Show recent locations"
+let g:WhichKeyDesc_file_show_main_menu = "<leader>fm Main Menu"
+let g:WhichKeyDesc_file_recent_projects = "<leader>fp Recent projects"
+let g:WhichKeyDesc_file_nav_show_recent_files = "<leader>fr Recent files"
+let g:WhichKeyDesc_file_nav_new_scratchfile = "<leader>fs New scratch file"
+
+" Refactoring
+map <leader>rn <Action>(RenameElement)
+map <leader>rm <Action>(ExtractMethod)
+map <leader>rv <Action>(IntroduceVariable)
+map <leader>rf <Action>(IntroduceField)
+map <leader>rs <Action>(ChangeSignature)
+map <leader>rr <Action>(Refactorings.QuickListPopupAction)
+
+" Go to code
+"nmap <leader>gu <Action>(ShowUsages)
+
+" Version control windows
+map <leader>vc <Action>(CheckinProject)
+map <leader>vs <Action>(ActivateVersionControlToolWindow)
+map <leader>vb <Action>(Git.Branches)
+let g:WhichKeyDesc_vcs = "<leader>v Git operations"
+let g:WhichKeyDesc_vcs_commit = "<leader>vc Open Git commit dialog"
+let g:WhichKeyDesc_vcs_status = "<leader>vs Open Git status dialog"
+let g:WhichKeyDesc_vcs_branches = "<leader>vb Open Git branches list"
+
+
+" Errors
+map <leader>en <Action>(ReSharperGotoNextErrorInSolution)
+map <leader>ep <Action>(ReSharperGotoPrevErrorInSolution)
+
+" Terminal"
+map <leader>t <Action>(Terminal.OpenInTerminal)
+
+" Switcher "
+map <leader>s <Action>(Switcher)
+let g:WhichKeyDesc_switcher = "<leader>s Switcher"
+
+" Plugin help
+" Commentary:
+" gcc - comment current line
+" gc + motion - eg.  gc2j
+" gc - comment selected context
+" gcap - comment current paragraph
+" gcii - comment the current indent section - needs indent-object plugins
+" gcae - comment the entire file - needs textobj-entire plugin
+" gcgc uncomments a sit of adjacent commented lines
+
+" Surround:
+" cs, ds, ys"
+" It's easiest to explain with examples. Press cs"' inside
+"Hello world!"
+"to change it to
+"'Hello world!'
+"Now press cs'<q> to change it to
+"<q>Hello world!</q>
+"Hello world!"
+"To remove the delimiters entirely, press ds".
+"Hello world!
+"Now with the cursor on "Hello", press ysiw] (iw is a text object).
+"[Hello] world!
+"Let's make that braces and add some space (use } instead of { for no space): cs]{
+"{ Hello } world!
+"Now wrap the entire line in parentheses with yssb or yss).
+"({ Hello } world!)
+"Revert to the original text: ds{ds)
+"Hello world!
+"Emphasize hello: ysiw<em>
+"<em>Hello</em> world!
+"Finally, let's try out visual mode. Press a capital V (for linewise visual mode) followed by S<p class="important">.
+"<p class="important">
+"  <em>Hello</em> world!
+"</p>
+"This plugin is very powerful for HTML and XML editing, a niche which currently seems underfilled in Vim land. (As opposed to HTML/XML inserting, for which many plugins are available). Adding, changing, and removing pairs of tags simultaneously is a breeze.
+"The . command will work with ds, cs, and yss if you install repeat.vim.
+
