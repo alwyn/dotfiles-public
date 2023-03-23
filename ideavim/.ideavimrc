@@ -53,10 +53,7 @@ set easymotion
 
 "" Options
 set notimeout
-set ignorecase
-set smartcase
-set incsearch
-set nohlsearch
+set incsearch nohlsearch ignorecase smartcase
 set relativenumber
 set number
 set ideajoin
@@ -133,10 +130,9 @@ let g:WhichKey_SortOrder = "by_key_prefix_first"
 " Close stuff
 map <leader>q <Action>(CloseContent)
 map <leader>Q <Action>(CloseAllEditors)
-map <leader>h <Action>(HideAllWindows)
+
 let g:WhichKeyDesc_close_tab = "<leader>q Close active tab"
 let g:WhichKeyDesc_close_all = "<leader>Q Close all editors"
-let g:WhichKeyDesc_hide_all_windows = "<leader>h Hide all windows"
 
 "lsp type stuff"
 map <leader>gi <action>(GotoImplementation)
@@ -146,6 +142,7 @@ map <leader>gs <Action>(GotoSuperMethod)
 map <leader>gr <Action>(GotoRelated)
 map <leader>gt <Action>(GotoTest)
 map <leader>gu <Action>(ShowUsages)
+map <leader>gc <Action>(GotoClass)
 let g:WhichKeyDesc_goto = "<leader>g Go to X"
 let g:WhichKeyDesc_goto_declaration = "<leader>gd Declaration"
 let g:WhichKeyDesc_goto_type_declaration = "<leader>gy Type Definition"
@@ -154,9 +151,9 @@ let g:WhichKeyDesc_goto_usages = "<leader>gu Usages"
 let g:WhichKeyDesc_goto_test = "<leader>gt Test"
 let g:WhichKeyDesc_goto_related = "<leader>gr Related"
 let g:WhichKeyDesc_goto_super_method = "<leader>gs Super Method"
+let g:WhichKeyDesc_goto_class = "<leader>gc Class"
 
 let g:WhichKeyDesc_leader = "<leader> Leader key"
-let g:WhichKeyDesc_nerdtree = "<leader>x Open file explorer"
 
 let g:WhichKeyDesc_easymotion = "<leader>j Jump with Easymotion"
 
@@ -166,17 +163,6 @@ let g:WhichKeyDesc_fold = "<leader>z Folding"
 let g:WhichKeyDesc_fold_all = "<leader>zc Fold all regions"
 let g:WhichKeyDesc_unfold_all = "<leader>zo Unfold all regions"
 
-let g:WhichKeyDesc_window = "<leader>w Window splits"
-let g:WhichKeyDesc_window_split_vertically = "<leader>wv Split vertically"
-let g:WhichKeyDesc_window_split_horizontally = "<leader>ws Split horizontally"
-let g:WhichKeyDesc_window_split_unsplit = "<leader>wu Unsplit"
-let g:WhichKeyDesc_window_split_move_editor = "<leader>wm Move editor to opposite tab group"
-
-let g:WhichKeyDesc_display = "<leader>d Display options"
-let g:WhichKeyDesc_zen_mode = "<leader>dz Toggle Zen mode"
-let g:WhichKeyDesc_df_mode = "<leader>dd Toggle Distraction-Free mode"
-let g:WhichKeyDesc_fullscreen = "<leader>df Toggle full screen"
-let g:WhichKeyDesc_presentation = "<leader>dp Toggle presentation mode"
 
 let g:WhichKeyDesc_action= "<leader>a Actions"
 let g:WhichKeyDesc_action_menu = "<leader>ac Open actions menu"
@@ -192,10 +178,6 @@ let g:WhichKeyDesc_refactoring_variable = "<leader>rv Introduce variable"
 let g:WhichKeyDesc_refactoring_field = "<leader>rf Introduce field"
 let g:WhichKeyDesc_refactoring_signature = "<leader>rs Change signature"
 let g:WhichKeyDesc_refactoring_all = "<leader>rr Open refactorings list"
-
-let g:WhichKeyDesc_errors = "<leader>e Error navigation"
-let g:WhichKeyDesc_errors_next = "<leader>en Go to next error in solution"
-let g:WhichKeyDesc_errors_prev = "<leader>ep Go to previous error in solution"
 
 let g:WhichKeyDesc_terminal = "<leader>t Open in terminal"
 
@@ -237,14 +219,15 @@ nnoremap qj @q
 " Leader commands
 " ========================================================
 
-" Comment lines
-map <leader>c <action>(CommentByLineComment)
-
 " Jump around with easymotion
 map <leader>j <Plug>(easymotion-s)
 
 " Open NERDTree (use q to quit)
-map <leader>x :NERDTreeToggle<CR>
+map <leader>xf :NERDTreeFocus<CR>
+map <leader>xt :NERDTreeToggle<CR>
+let g:WhichKeyDesc_nerd = "<leader>x Explorer"
+let g:WhichKeyDesc_nerd_focus = "<leader>xf Focus"
+let g:WhichKeyDesc_nerd_toggle = "<leader>xt Toggle"
 
 " Folding
 map <leader>zc :action CollapseAllRegions<CR>
@@ -255,12 +238,27 @@ map <leader>wv <Action>(SplitVertically)
 map <leader>ws <Action>(SplitHorizontally)
 map <leader>wu <Action>(Unsplit)
 map <leader>wm <Action>(MoveEditorToOppositeTabGroup)
+map <leader>wh <Action>(HideAllWindows)
+let g:WhichKeyDesc_window = "<leader>w Window"
+let g:WhichKeyDesc_window_split_vertically = "<leader>wv Split vertically"
+let g:WhichKeyDesc_window_split_horizontally = "<leader>ws Split horizontally"
+let g:WhichKeyDesc_window_split_unsplit = "<leader>wu Unsplit"
+let g:WhichKeyDesc_window_split_move_editor = "<leader>wm Move editor to opposite tab group"
+let g:WhichKeyDesc_window_hide_all = "<leader>wh Hide all windows"
 
 " Display options
 map <leader>dd <action>(ToggleDistractionFreeMode)
 map <leader>dz <action>(ToggleZenMode)
 map <leader>df <action>(ToggleFullScreen)
 map <leader>dp <action>(TogglePresentationMode)
+map <leader>dm <Action>(ViewMainMenu)
+let g:WhichKeyDesc_display = "<leader>d Display options"
+let g:WhichKeyDesc_zen_mode = "<leader>dz Toggle Zen mode"
+let g:WhichKeyDesc_df_mode = "<leader>dd Toggle Distraction-Free mode"
+let g:WhichKeyDesc_fullscreen = "<leader>df Toggle full screen"
+let g:WhichKeyDesc_presentation = "<leader>dp Toggle presentation mode"
+let g:WhichKeyDesc_display_main_menu = "<leader>dm Toggle main menu"
+
 
 " Actions
 map <leader>ac <action>(ShowIntentionActions)
@@ -270,21 +268,43 @@ map <leader>ag <action>(Generate)
 map <leader>ao <action>(OptimizeImports)
 
 " File navigation
+map <leader>fb <Action>(ShowNavBar)
 map <leader>ff <action>(GotoFile)
 map <leader>fg <action>(FindInPath)
 map <leader>fl <action>(RecentLocations)
 map <leader>fm <Action>(MainMenu)
 map <leader>fp <Action>(ManageRecentProjects)
 map <leader>fr <action>(RecentFiles)
-map <leader>fs <action>(NewScratchFile)
+map <leader>fs <Action>(SelectIn)
 let g:WhichKeyDesc_file_nav = "<leader>f File navigation"
-let g:WhichKeyDesc_file_nav_goto_file = "<leader>ff Go to file"
+let g:WhichKeyDesc_file_nav_bar = "<leader>fb Nav Bar"
+let g:WhichKeyDesc_file_nav_goto_file = "<leader>ff Find file"
 let g:WhichKeyDesc_file_find_in_path = "<leader>fg Find in path"
 let g:WhichKeyDesc_file_nav_show_recent_locations = "<leader>fl Show recent locations"
 let g:WhichKeyDesc_file_show_main_menu = "<leader>fm Main Menu"
 let g:WhichKeyDesc_file_recent_projects = "<leader>fp Recent projects"
 let g:WhichKeyDesc_file_nav_show_recent_files = "<leader>fr Recent files"
-let g:WhichKeyDesc_file_nav_new_scratchfile = "<leader>fs New scratch file"
+let g:WhichKeyDesc_file_nav_select_in = "<leader>fs Select in"
+
+" New stuff"
+map <leader>ns <Action>(NewScratchFile)
+let g:WhichKeyDesc_new = "<leader>n New"
+let g:WhichKeyDesc_new_scratchfile = "<leader>ns Scratch File"
+
+" Popups"
+map <leader>pu <Action>(ShowUmlDiagramPopup)
+map <leader>ps <Action>(FileStructurePopup)
+let g:WhichKeyDesc_popup = "<leader>p Popups"
+let g:WhichKeyDesc_popup_file_structure = "<leader>ps File Structure"
+
+" Hierarchy "
+map <leader>hm <Action>(MethodHierarchy)
+map <leader>ht <Action>(TypeHierarchy)
+map <leader>hc <Action>(CallHierarchy)
+let g:WhichKeyDesc_hierarchy = "<leader>h Hierarchy"
+let g:WhichKeyDesc_hierarchy_call = "<leader>hc Call"
+let g:WhichKeyDesc_hierarchy_method = "<leader>hm Method"
+let g:WhichKeyDesc_hierarchy_type = "<leader>ht Type"
 
 " Refactoring
 map <leader>rn <Action>(RenameElement)
@@ -306,17 +326,13 @@ let g:WhichKeyDesc_vcs_commit = "<leader>vc Open Git commit dialog"
 let g:WhichKeyDesc_vcs_status = "<leader>vs Open Git status dialog"
 let g:WhichKeyDesc_vcs_branches = "<leader>vb Open Git branches list"
 
-
-" Errors
-map <leader>en <Action>(ReSharperGotoNextErrorInSolution)
-map <leader>ep <Action>(ReSharperGotoPrevErrorInSolution)
-
 " Terminal"
 map <leader>t <Action>(Terminal.OpenInTerminal)
 
 " Switcher "
-map <leader>s <Action>(Switcher)
-let g:WhichKeyDesc_switcher = "<leader>s Switcher"
+map <leader>os <Action>(Switcher)
+let g:WhichKeyDesc_other = "<leader>o Other"
+let g:WhichKeyDesc_switcher = "<leader>os Switcher"
 
 " Plugin help
 " Commentary:
