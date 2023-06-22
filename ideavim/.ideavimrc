@@ -115,9 +115,13 @@ map <a-l> <C-w>l
 set clipboard+=unnamed
 set clipboard+=ideaput
 
-let mapleader = ";"
+" This is so that <leader><leader> work better"
+set timeoutlen = 2000
+
+let mapleader = " "
 
 nnoremap <leader><leader> ;
+vnoremap <leader><leader> ;
 
 let g:NERDTreeMapActivateNode='l'
 let g:NERDTreeMapJumpParent='h'
