@@ -10,7 +10,7 @@ sethandler <A-K> a:vim
 sethandler <A-L> a:vim
 sethandler <C-N> a:vim
 sethandler <C-O> a:vim
-sethandler <C-V> a:ide
+sethandler <C-V> a:vim  "Start visual mode in block mode"
 
 "" Emulated plugins
 set argtextobj
@@ -18,11 +18,12 @@ let g:argtextobj_pairs="(:),{:},<:>,[:]"
 set commentary
 set highlightedyank
 set NERDTree
-set surround
 set textobj-entire
 "set indent-object
 set which-key
 set sneak
+"" surround must come after sneak so that sneak don't steal S
+set surround
 
 set quickscope
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']

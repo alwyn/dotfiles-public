@@ -1,0 +1,1 @@
+settings.tabsThreshold = 0;
