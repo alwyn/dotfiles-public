@@ -21,8 +21,22 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "Iosevka Nerd Font Mono" :size 18 :weight 'medium)
-    doom-variable-pitch-font (font-spec :family "Iosevka Nerd Font" :size 18 :weight 'medium))
+
+;; (setq font-family "Iosevka Nerd Font Mono")
+(setq font-family "Iosevka")
+(setq font-weight 'normal)
+
+(cond
+  ((display-pixel-width 7680)   ;; This is 1440k 27" external scaled to 4k
+   (progn (setq font-size-regular 30) (setq font-size-large 40)))
+  ((display-pixel-width 1920)
+   (progn (setq font-size-regular 12) (setq font-size-large 16)))
+  (t (progn (setq font-size-regular 12) (setq font-size-large 16))))
+
+(setq doom-font (font-spec :family font-family :size font-size-regular :weight font-weight)
+    doom-variable-pitch-font (font-spec :family font-family :size font-size-regular :weight font-weight)
+    (doom-font-big (font-spec :family font-family :size font-size-large :weight font-weight))
+
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -61,6 +75,14 @@
   :config
   (org-roam-setup)
   (require 'org-roam-protocol))
+
+(setq org-plantuml-jar-path (expand-file-name "/home/alwyn/.doom.d/plantuml-1.2022.12.jar"))
+(setq plantuml-jar-path (expand-file-name "/home/alwyn/.doom.d/plantuml-1.2022.12.jar"))
+(setq plantuml-default-exec-mode 'jar)  ;;Necessary to render in the buffer
+
+(after! org
+        (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+        (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t))))
 
 (add-to-list 'auto-mode-alist '("\\.ldg$" . ledger-mode))
 
