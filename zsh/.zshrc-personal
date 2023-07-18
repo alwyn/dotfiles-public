@@ -1,0 +1,35 @@
+export EDITOR='nvim'
+export VISUAL='nvim'
+export BROWSER=/usr/bin/brave
+
+alias awsume=". awsume"
+alias w3md="w3m duckduckgo.com"
+
+alias gwl="git worktree list"
+
+alias infc="informant check"
+alias infl="informant list"
+alias infr="informant read"
+
+alias caps="setxkbmap -option 'ctrl:nocaps'"
+
+alias lazy="XDG_CONFIG_HOME=~/nvim/lazy XDG_DATA_HOME=~/nvim/lazy/data XDG_CACHE_HOME=~/nvim/lazy/cache XDG_STATE_HOME=~/nvim/lazy/state nvim"
+
+# alias emacs="emacsclient -c -a 'emacs'"
+
+# ZSH_THEME_RANDOM_CANDIDATES=( "kennethreitz" simple" "cloud" "minimal" "peepcode" "fino" "garyblessington" "daveverwer" "kiwi" "sunrise" "norm" "lukerandall" "essembeh" "sorin" "smt" "ys", "af-magic", "steeef" "muse")
+
+ZSH_THEME_RANDOM_IGNORED=(humza xiong-chiamiov fino-time)
+
+# BROOT initialization to be able to do CD   
+source /home/alwyn/.config/broot/launcher/bash/br
+
+# Because sometimes shit don't happen
+# source /home/alwyn/.xprofile
+
+export PATH="$HOME/bin:$HOME/.emacs.d/bin:$PATH"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/alwyn/.sdkman"
+[[ -s "/home/alwyn/.sdkman/bin/sdkman-init.sh" ]] && source "/home/alwyn/.sdkman/bin/sdkman-init.sh"
+
