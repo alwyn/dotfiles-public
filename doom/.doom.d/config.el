@@ -27,15 +27,15 @@
 (setq font-weight 'normal)
 
 (cond
-  ((display-pixel-width 7680)   ;; This is 1440k 27" external scaled to 4k
-   (progn (setq font-size-regular 30) (setq font-size-large 40)))
-  ((display-pixel-width 1920)
-   (progn (setq font-size-regular 12) (setq font-size-large 16)))
-  (t (progn (setq font-size-regular 12) (setq font-size-large 16))))
+  ((equal (display-pixel-width) 7680)   ;; This is 1440k 27" external scaled to 4k
+   (setq font-size-regular 30 font-size-large 40))
+  ((equal (display-pixel-width) 3840)   ;; Dual 24" 1920x1200
+   (setq font-size-regular 16 font-size-large 24))
+  (t (setq font-size-regular 12 font-size-large 16)))
 
 (setq doom-font (font-spec :family font-family :size font-size-regular :weight font-weight)
     doom-variable-pitch-font (font-spec :family font-family :size font-size-regular :weight font-weight)
-    (doom-font-big (font-spec :family font-family :size font-size-large :weight font-weight))
+    doom-font-big (font-spec :family font-family :size font-size-large :weight font-weight))
 
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
@@ -62,6 +62,7 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
+
 (after! org
   (setq org-agenda-files '("~/org/gtd")
         org-hide-emphasis-markers t
