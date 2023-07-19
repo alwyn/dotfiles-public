@@ -257,12 +257,14 @@ map <leader>dz <action>(ToggleZenMode)
 map <leader>df <action>(ToggleFullScreen)
 map <leader>dp <action>(TogglePresentationMode)
 map <leader>dm <Action>(ViewMainMenu)
+map <leader>dt <Action>(ViewToolButtons)
 let g:WhichKeyDesc_display = "<leader>d Display options"
 let g:WhichKeyDesc_zen_mode = "<leader>dz Toggle Zen mode"
 let g:WhichKeyDesc_df_mode = "<leader>dd Toggle Distraction-Free mode"
 let g:WhichKeyDesc_fullscreen = "<leader>df Toggle full screen"
 let g:WhichKeyDesc_presentation = "<leader>dp Toggle presentation mode"
 let g:WhichKeyDesc_display_main_menu = "<leader>dm Toggle main menu"
+let g:WhichKeyDesc_toolbuttons = "<leader>dt Toggle tool buttons"
 
 
 " Actions
