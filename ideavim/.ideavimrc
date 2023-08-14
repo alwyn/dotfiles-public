@@ -283,6 +283,7 @@ map <leader>fm <Action>(MainMenu)
 map <leader>fp <Action>(ManageRecentProjects)
 map <leader>fr <action>(RecentFiles)
 map <leader>fs <Action>(SelectIn)
+map <leader>ft <Action>(ReformatCode)
 let g:WhichKeyDesc_file_nav = "<leader>f File navigation"
 let g:WhichKeyDesc_file_nav_bar = "<leader>fb Nav Bar"
 let g:WhichKeyDesc_file_nav_goto_file = "<leader>ff Find file"
@@ -292,6 +293,7 @@ let g:WhichKeyDesc_file_show_main_menu = "<leader>fm Main Menu"
 let g:WhichKeyDesc_file_recent_projects = "<leader>fp Recent projects"
 let g:WhichKeyDesc_file_nav_show_recent_files = "<leader>fr Recent files"
 let g:WhichKeyDesc_file_nav_select_in = "<leader>fs Select in"
+let g:WhichKeyDesc_file_reformat_code = "<leader>ft Reformat"
 
 " New stuff"
 map <leader>ns <Action>(NewScratchFile)
